@@ -1,0 +1,37 @@
+<!--
+  Szablon DZIECKA. Zmienne "uczen" i "numer" pochodzą z @Input(),
+  więc możemy ich używać tak samo jak zwykłych pól klasy.
+-->
+<!-- [class.nazwa]="warunek" – dodaje JEDNĄ klasę, gdy warunek jest true -->
+<div class="card h-100"
+     [class.border-success]="uczen.srednia >= 4.5"
+     [class.border-danger]="uczen.srednia < 2">
+
+  <div class="card-body">
+
+    <!-- Interpolacja – wstawia wartość ze zmiennej do HTML -->
+    <h5 class="card-title"
+        [class.text-decoration-line-through]="!uczen.aktywny">
+      {{ numer }}. {{ uczen.imie }} {{ uczen.nazwisko }}
+    </h5>
+
+    <p class="card-text text-muted mb-2">Klasa: {{ uczen.klasa }}</p>
+
+    <!-- [ngClass] z metodą – kilka klas naraz, logika siedzi w TypeScript -->
+    <span class="badge" [ngClass]="klasaSredniej()">
+      Średnia: {{ uczen?.srednia }}
+    </span>
+
+    <!-- @if – pokazuje element tylko gdy warunek jest true (w przeciwnym razie usuwa go z DOM) -->
+    @if (!uczen.aktywny) {
+      <span class="badge bg-secondary ms-1">nieaktywny</span>
+    }
+
+    <div class="mt-3 d-flex gap-2">
+      <!-- (click) = event binding. Wywołuje metodę z klasy komponentu -->
+      <button class="btn btn-sm btn-outline-success" (click)="polub()">Ulubiony</button>
+      <button class="btn btn-sm btn-outline-danger" (click)="usun()">Usuń</button>
+    </div>
+
+  </div>
+</div>
